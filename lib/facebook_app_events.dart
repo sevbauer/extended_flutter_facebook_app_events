@@ -45,6 +45,25 @@ class FacebookAppEvents {
   /// This could be an EAN, article identifier, etc., depending on the nature of the app.
   static const paramNameContentId = "fb_content_id";
 
+  /// Notifies the events system that the app has launched and activate and deactivate events
+  /// should start being logged automatically. By default this function is called automatically
+  /// when the SDK is initialized.
+  ///
+  /// In case `FacebookAutoLogAppEventsEnabled` (iOS) or `com.facebook.sdk.AutoLogAppEventsEnabled`
+  /// (Android) is set to `false` it can be called to log activate/install events manually.
+  ///
+  /// Android only: If an [applicationId] is provided, it will override the application ID used to
+  /// initialize the SDK.
+  Future<void> activateApp({String? applicationId}) {
+    final args = <String, dynamic>{};
+
+    if (applicationId != null) {
+      args['applicationId'] = applicationId;
+    }
+
+    return _channel.invokeMethod<void>('activateApp', args);
+  }
+
   /// Clears the current user data
   Future<void> clearUserData() {
     return _channel.invokeMethod<void>('clearUserData');

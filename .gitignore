@@ -5,3 +5,7 @@
 .pub/
 
 build/
+
+.idea/caches
+android/.idea/caches
+android/gradle/wrapper
